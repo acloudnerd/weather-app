@@ -62,6 +62,7 @@ async function getWeather(latitude, longitude, city, country) {
 }
 
 function displayWeather(weather, city, country){
+    
     const weatherContainer = document.getElementById("weatherContainer");
     const cityHeader = document.getElementById("cityName");
     const temp = document.getElementById("temperature");
@@ -75,6 +76,11 @@ function displayWeather(weather, city, country){
     temp.textContent = `Temperature: ${weather.temperature.toFixed(1)} °C`;
     condition.textContent = `Condition: ${weatherCondition}`;
     windSpeed.textContent = `Wind Speed: ${weather.windspeed.toFixed(1)} km/h`;
+
+    const day = new Date().toLocaleDateString("en-US", { weekday: "long"});
+    const occasion = document.getElementById("occasion")?.value || "casual";
+
+    getOutfitRecommendation(weather.temperature, weatherCondition, occasion, day);
 }
 
 function showError(message){
@@ -82,4 +88,37 @@ function showError(message){
     weatherContainer.style.display = "none";
     const errorPara = document.getElementById("errorMessage");
     errorPara.textContent = message;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    navigator.geolocation.getCurrentPosition(success, error);
+});
+function success(position){
+    const {latitude, longitude} = position.coords;
+    getWeather(latitude, longitude, "Location", "");
+}
+
+function error(err){
+    showError("Unable to retrieve your location. Please enable location access or enter a city manually.");
+}
+
+async function getOutfitRecommendation(temperature, weatherCondition, occasion, day){
+    try{
+        const response = await fetch("/.netlify/functions/ai-recommendation", {
+            method: "POST",
+            headers: {"Content-Type": "application/json" },
+            body: JSON.stringify({temperature, weatherCondition, occasion, day}),
+        });
+
+        const data = await response.json();
+
+        const suggestionBox = document.getElementById("aiSuggestion");
+        if(data.suggestion){
+            suggestionBox.textContent = data.suggestion;
+        }else {
+            suggestionBox.textContent = "AI suggestion not available."
+        }
+    }catch (err){
+        console.error(err)
+    }
 }
