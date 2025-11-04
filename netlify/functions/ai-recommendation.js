@@ -1,8 +1,11 @@
+import 'dotenv/config';
 import OpenAI from "openai";
 
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY, //secure key
+    apiKey: process.env.OPENAI_API_KEY, 
 });
+
+console.log("API Key loaded:", process.env.OPENAI_API_KEY ? "✅ Yes" : "❌ No");
 
 export async function handler(event){
     try{
@@ -26,12 +29,13 @@ export async function handler(event){
             body: JSON.stringify({suggestion}),
         };
     }catch (error){
+        console.error("AI Function Error:", error);
         return{
             statusCode: 500,
             body: JSON.stringify({error: error.message}),
-        }
+        };
     
-    };
+    }
 
 }
 

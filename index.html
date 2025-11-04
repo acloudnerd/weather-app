@@ -1,34 +1,45 @@
-<div class = "container">
-    <h1> Weather App</h1>
-    <div class="searchContainer">
-        <input
-            class = "inputField"
-            id = "cityField"
-            placeholder="Enter city name..."
-            type="text" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Weather AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="glass-container">
+    <div class="container">
+      <h2>🌤 Smart Weather AI</h2>
+      <p>Get weather updates and AI outfit suggestions.</p>
 
-            <button id = "searchBtn">Search</Search></button>
+      <input type="text" id="cityField" placeholder="Enter a city..." />
+      <button id="searchBtn">Check Weather</button>
+
+      <select id="occasion">
+        <option value="">Select Occasion</option>
+        <option value="casual">Casual</option>
+        <option value="work">Work</option>
+        <option value="formal">Formal</option>
+        <option value="gym">Gym</option>
+        <option value="golf">Golf</option>
+      </select>
+
+      <p id="errorMessage" style="color: #ff8080;"></p>
+
+      <div id="weatherContainer">
+        <h3 id="cityName"></h3>
+        <p id="temperature"></p>
+        <p id="condition"></p>
+        <p id="windSpeed"></p>
+      </div>
+
+      <div id="aiSuggestion">Your AI outfit suggestion will appear here...</div>
     </div>
+    <footer>
+      © 2025 acloudnerd — Smart Weather AI
+    </footer>
+  </div>
 
-    <div id = "weatherContainer">
-        <h2 id = "cityName"></h2>
-        <p id = "temperature"></p>
-        <p id = "condition"></p>
-        <p id = "windSpeed"></p>
-    </div>
-
-    <p id = "errorMessage"></p>
-
-    <div>
-        <select id = "occasion">
-            <option value = "work">Work</option>
-            <option value = "casual">Casual</option>
-            <option value = "formal">Formal</option>
-            <option value = "gym">Gym</option>
-            <option value = "golf">Golf</option>
-        </select>
-        <p id="aiSuggestion" style = "margin-top: 15px; font-weight: bold;"></p>
-    </div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
