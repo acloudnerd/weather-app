@@ -1,2 +1,17 @@
-# Local Netlify folder
-.netlify
+# Environment files
+.env
+
+# Node dependencies
+node_modules/
+
+# Log files
+*.log
+
+# macOS metadata
+.DS_Store
+
+# Netlify local config
+.netlify/
+
+# Optional: temporary files
+*.tmp
